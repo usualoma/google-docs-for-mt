@@ -1,0 +1,89 @@
+#plugin information
+id: GoogleDocs
+name: GoogleDocs
+version: 0.1.0
+
+#about this plugin
+description: <__trans phrase="Enabling to work with GoogleDocs.">
+author_name: <__trans phrase="toi-planning">
+author_link: http://tec.toi-planning.net/
+plugin_link: http://tec.toi-planning.net/mt/googledocs/
+doc_link: http://tec.toi-planning.net/mt/googledocs/manual
+
+#Localization
+l10n_class: GoogleDocs::L10N
+
+# settings
+config_template: blog_config.tmpl
+settings:
+    enabled:
+        Default: 0
+    email:
+    password:
+    base_folder:
+        Default: mt
+    base_folder_id:
+
+# object types
+schema_version: 0.3
+object_types:
+    asset.file:
+        googledocs_id:
+            type: string
+            size: 255
+            not_null: 0
+            label: GoogleDocs ID
+        googledocs_etag:
+            type: string
+            size: 255
+            not_null: 0
+            label: GoogleDocs ETag
+        googledocs_md5:
+            type: string
+            size: 32
+            not_null: 0
+            label: Digest of data
+    entry:
+        googledocs_id:
+            type: string
+            size: 255
+            not_null: 0
+            label: GoogleDocs ID
+        googledocs_etag:
+            type: string
+            size: 255
+            not_null: 0
+            label: GoogleDocs ETag
+        googledocs_md5:
+            type: string
+            size: 32
+            not_null: 0
+            label: Digest of data
+
+applications:
+    new_search:
+        methods:
+            googledocs: $GoogleDocs::GoogleDocs::Search::process
+
+tags:
+    help_url: http://tec.toi-planning.net/mt/googledocs/tags#%t
+    function:
+        GoogleDocsBaseFolderID: $GoogleDocs::GoogleDocs::_hdlr_base_folder_id
+        GoogleDocsEmail: $GoogleDocs::GoogleDocs::_hdlr_email
+        GoogleDocsPassword: $GoogleDocs::GoogleDocs::_hdlr_password
+        GoogleDocsID: $GoogleDocs::GoogleDocs::_hdlr_id
+        GoogleDocsZendFrameworkPath: $GoogleDocs::GoogleDocs::_hdlr_zend_framework_path
+    block:
+        GoogleDocsIndex: $GoogleDocs::GoogleDocs::_hdlr_index
+
+callbacks:
+    MT::Entry::post_save: $GoogleDocs::GoogleDocs::entry_post_save
+    MT::Page::post_save: $GoogleDocs::GoogleDocs::entry_post_save
+
+    MT::Entry::post_remove: $GoogleDocs::GoogleDocs::object_post_remove
+    MT::Page::post_remove: $GoogleDocs::GoogleDocs::object_post_remove
+    MT::Asset::post_remove: $GoogleDocs::GoogleDocs::object_post_remove
+
+    MT::Entry::pre_save: $GoogleDocs::GoogleDocs::entry_pre_save
+    MT::Asset::pre_save: $GoogleDocs::GoogleDocs::asset_pre_save
+    MT::PluginData::pre_save: $GoogleDocs::GoogleDocs::plugin_data_pre_save

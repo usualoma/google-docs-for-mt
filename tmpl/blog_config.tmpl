@@ -1,0 +1,50 @@
+<mtapp:setting
+	id="googledocs_enabled"
+	label="<__trans phrase="Enabled">"
+>
+<input type="checkbox" id="googledocs_enabled" name="enabled" value="1" <mt:If name="enabled"> checked="checked" </mt:If> />
+</mtapp:setting>
+
+<style type="text/css">
+#googledocs_props input {
+	width: 300px;
+}
+</style>
+<div id="googledocs_props" style="<mt:Unless name="enabled">display: none;</mt:Unless>">
+
+<mtapp:setting
+	id="googledocs_email"
+	label="<__trans phrase="Email Address">"
+>
+<input id="googledocs_email" name="email" value="<mt:Var name="email" />" />
+</mtapp:setting>
+
+<mtapp:setting
+	id="googledocs_password"
+	label="<__trans phrase="Password">"
+>
+<input type="password" id="googledocs_password" name="password" value="<mt:Var name="password" />" />
+</mtapp:setting>
+
+<mtapp:setting
+	id="googledocs_base_folder"
+	label="<__trans phrase="Base Folder">"
+>
+<input id="googledocs_base_folder" name="base_folder" value="<mt:Var name="base_folder" />" />
+</mtapp:setting>
+
+</div>
+
+<script type="text/javascript">
+jQuery(function($) {
+	var props = $('#googledocs_props');
+	$('#googledocs_enabled').change(function() {
+		if (this.checked) {
+			props.show();
+		}
+		else {
+			props.hide();
+		}
+	});
+});
+</script>
