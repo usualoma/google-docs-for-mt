@@ -1,0 +1,37 @@
+<mt:IfArchiveTypeEnabled archive_type="Individual">
+<div class="widget-calendar widget">
+    <h3 class="widget-header"><$mt:Date format="%B %Y"$></h3>
+    <div class="widget-content">
+        <table summary="リンク付きのカレンダー">
+            <tr>
+                <th abbr="日曜日">日</th>
+                <th abbr="月曜日">月</th>
+                <th abbr="火曜日">火</th>
+                <th abbr="水曜日">水</th>
+                <th abbr="木曜日">木</th>
+                <th abbr="金曜日">金</th>
+                <th abbr="土曜日">土</th>
+            </tr>
+    <mt:Calendar>
+        <mt:CalendarWeekHeader>
+            <tr>
+        </mt:CalendarWeekHeader>
+                <td>
+        <mt:CalendarIfEntries>
+            <mt:Entries lastn="1">
+                    <a href="<$mt:EntryPermalink$>"><$mt:CalendarDay$></a>
+            </mt:Entries>
+        </mt:CalendarIfEntries>
+        <mt:CalendarIfNoEntries>
+                    <$mt:CalendarDay$>
+        </mt:CalendarIfNoEntries>
+        <mt:CalendarIfBlank>&nbsp;</mt:CalendarIfBlank>
+                </td>
+        <mt:CalendarWeekFooter>
+            </tr>
+        </mt:CalendarWeekFooter>
+    </mt:Calendar>
+        </table>
+    </div>
+</div>
+</mt:IfArchiveTypeEnabled>

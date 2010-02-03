@@ -1,0 +1,76 @@
+<mt:unless name="main_index">
+<div class="widget-about-this-page widget">
+    <h3 class="widget-header">
+<mt:If name="entry_template">
+        このブログ記事について
+<mt:Else>
+    <mt:If name="archive_template">
+        このアーカイブについて
+    </mt:If>
+</mt:If>
+<mt:If name="archive_index">
+        このページについて
+</mt:If>
+    </h3>
+    <div class="widget-content">
+<mt:If name="archive_index">
+        <p>このページには過去に書かれたすべてのコンテンツが含まれています。</p>
+</mt:If>
+<mt:If name="entry_template">
+        <p class="first">このページは、<$mt:EntryAuthorLink$>が<$mt:EntryDate format="%x %X"$>に書いたブログ記事です。</p>
+    <mt:EntryPrevious>
+        <p>ひとつ前のブログ記事は「<a href="<$mt:EntryPermalink$>"><$mt:EntryTitle remove_html="1"$></a>」です。</p>
+    </mt:EntryPrevious>
+    <mt:EntryNext>
+        <p>次のブログ記事は「<a href="<$mt:EntryPermalink$>"><$mt:EntryTitle remove_html="1"$></a>」です。</p>
+    </mt:EntryNext>
+</mt:If>
+<mt:If name="category_archive">
+    <mt:If name="datebased_archive">
+        <p class="first">このページには、<strong><$mt:ArchiveDate format="%B %Y"$></strong>以降に書かれたブログ記事のうち<strong><$mt:CategoryLabel$></strong>カテゴリに属しているものが含まれています。</p>
+        <mt:ArchivePrevious>
+        <p>前のアーカイブは<a href="<$mt:ArchiveLink$>"><$mt:ArchiveTitle$></a>です。</p>
+        </mt:ArchivePrevious>
+        <mt:ArchiveNext>
+        <p>次のアーカイブは<a href="<$mt:ArchiveLink$>"><$mt:ArchiveTitle$></a>です。</p>
+        </mt:ArchiveNext>
+    <mt:Else>
+        <p class="first">このページには、過去に書かれたブログ記事のうち<strong><$mt:CategoryLabel$></strong>カテゴリに属しているものが含まれています。</p>
+        <mt:CategoryPrevious>
+        <p>前のカテゴリは<a href="<$mt:CategoryArchiveLink$>"><$mt:CategoryLabel$></a>です。</p>
+        </mt:CategoryPrevious>
+        <mt:CategoryNext>
+        <p>次のカテゴリは<a href="<$mt:CategoryArchiveLink$>"><$mt:CategoryLabel$></a>です。</p>
+        </mt:CategoryNext>
+    </mt:If>
+</mt:If>
+<mt:If name="author_archive">
+    <mt:If name="datebased_archive">
+        <p class="first">このページには、<strong><$mt:AuthorDisplayName encode_html="1"$></strong>が<strong><$mt:ArchiveDate format="%B %Y"$></strong>に書いたブログ記事が含まれています。</p>
+        <mt:ArchivePrevious>
+        <p>前のアーカイブは<a href="<$mt:ArchiveLink$>"><$mt:ArchiveTitle$></a>です。</p>
+        </mt:ArchivePrevious>
+        <mt:ArchiveNext>
+        <p>次のアーカイブは<a href="<$mt:ArchiveLink$>"><$mt:ArchiveTitle$></a>です。</p>
+        </mt:ArchiveNext>
+    <mt:Else>
+        <p class="first">このページには、<strong><$mt:AuthorDisplayName encode_html="1"$></strong>が最近書いたブログ記事が含まれています。</p>
+    </mt:If>
+</mt:If>
+<mt:If name="datebased_only_archive">
+        <p class="first">このページには、<strong><$mt:ArchiveDate format="%B %Y"$></strong>に書かれたブログ記事が新しい順に公開されています。</p>
+    <mt:ArchivePrevious>
+        <p>前のアーカイブは<a href="<$mt:ArchiveLink$>"><$mt:ArchiveTitle$></a>です。</p>
+    </mt:ArchivePrevious>
+    <mt:ArchiveNext>
+        <p>次のアーカイブは<a href="<$mt:ArchiveLink$>"><$mt:ArchiveTitle$></a>です。</p>
+    </mt:ArchiveNext>
+</mt:If>
+<mt:If name="archive_index">
+        <p>最近のコンテンツは<a href="<$mt:BlogURL$>">インデックスページ</a>で見られます。</p>
+<mt:Else>
+        <p>最近のコンテンツは<a href="<$mt:BlogURL$>">インデックスページ</a>で見られます。過去に書かれたものは<a href="<$mt:Link template="archive_index"$>">アーカイブのページ</a>で見られます。</p>
+</mt:If>
+    </div>
+</div>
+</mt:unless>

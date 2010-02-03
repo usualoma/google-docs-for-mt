@@ -1,0 +1,14 @@
+<mt:Ignore>
+    アーカイブの種類に応じて異なる内容を表示するように設定されたウィジェットです。詳細: http://www.movabletype.org/documentation/designer/widget-sets.html
+</mt:Ignore>
+<mt:If name="category_archive">
+    <mt:IfArchiveTypeEnabled archive_type="Category-Monthly">
+        <$mt:Include widget="カテゴリ月別アーカイブ"$>
+    </mt:IfArchiveTypeEnabled>
+</mt:If>
+<mt:IfArchiveTypeEnabled archive_type="Category">
+    <$mt:Include widget="カテゴリアーカイブ"$>
+</mt:IfArchiveTypeEnabled>
+<mt:IfArchiveTypeEnabled archive_type="Monthly">
+    <$mt:Include widget="月別アーカイブ"$>
+</mt:IfArchiveTypeEnabled>

@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="sixapart-standard">
+<head>
+    <$mt:Include module="HTMLヘッダー"$>
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="<$mt:Link template="rsd"$>" />
+    <title><$mt:BlogName encode_html="1"$></title>
+</head>
+<body id="<$mt:BlogThemeID$>" class="mt-main-index <$mt:Var name="page_layout"$>">
+    <div id="container">
+        <div id="container-inner">
+
+
+            <$mt:Include module="バナーヘッダー"$>
+
+
+            <div id="content">
+                <div id="content-inner">
+
+
+                    <div id="alpha">
+                        <div id="alpha-inner">
+
+                            <h3>検索</h3>
+                            <div>
+                                <form>
+                                    <input id="search" size="50" />
+                                    <input type="submit" value="検索" />
+                                    <img src="<mt:StaticWebPath />/images/indicator.gif" height="20" width="20" style="display: none; vertical-align:middle;" id="searching" />
+                                </form>
+                            </div>
+
+                            <h3 id="search_no_result" style="display: none">
+                                「<span class="search">検索語</span>」に一致する結果は見つかりませんでした。
+                            </h3> 
+
+                            <div id="search_result_container" style="display: none; padding-top: 20px;">
+                                <h3>
+                                   「<span class="search">検索語</span>」の検索結果
+                                </h3>
+                                <div id="search_result">
+                                </div>
+                                <div id="search_next" style="text-align: center; display: none">
+                                    <a href="" id="load_next">次 &gt;</a>
+                                </div>
+                                <div id="loading_next" style="text-align: center;">
+                                    <img src="<mt:StaticWebPath />/images/indicator.gif" height="20" width="20" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <$mt:Include module="バナーフッター"$>
+
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+jQuery(function($) {
+    var cache = {};
+    var search = $('#search').get(0);
+    var current = '';
+    var wait_count = 0;
+
+    $('#search').parent().submit(function() {
+        return false;
+    });
+
+    $('#load_next').click(function() {
+        if (! this.href) {
+            return false;
+        }
+
+        $('#loading_next').show();
+        var id = 'next' + Math.random();
+        id = id.replace(/\./, '');
+        $('#search_result').append('<div id="' + id + '"></div');
+
+        $.get(
+            this.href,
+            function(text) {
+                $('#loading_next').hide();
+                var split = text.indexOf("\n");
+
+                var next = $.trim(text.substr(0, split));
+                if (next) {
+                    $('#search_next').show();
+                    $('#load_next').attr('href', text.substr(0, split));
+                }
+                else {
+                    $('#search_next').hide();
+                }
+                $('#' + id).html(text.substr(split));
+            }
+        ); 
+        this.href = '';
+
+        return false;
+    });
+
+    function display(word) {
+        $('#search_no_result .search, #search_result_container .search').
+            html(word);
+        if (! word) {
+            $('#search_no_result').hide();
+            $('#search_result_container').hide();
+        }
+        else if (cache[word]) {
+            $('#search_no_result').hide();
+            $('#search_result_container').show();
+            $('#search_result').html(cache[word]['content']);
+            if (cache[word]['next']) {
+                $('#search_next').show();
+                $('#load_next').attr('href', cache[word]['next']);
+            }
+            else {
+                $('#search_next').hide();
+            }
+        }
+        else {
+            $('#search_no_result').show();
+            $('#search_result_container').hide();
+        }
+    }
+
+    setInterval(function() {
+        var value = $.trim(search.value);
+        if (value != current) {
+            current = value;
+            wait_count = 1;
+        }
+
+        if (wait_count) {
+            if (typeof cache[current] !== 'undefined') {
+                $('#searching').hide();
+                $('#loading_next').hide();
+                display(current);
+                wait_count = 0;
+            }
+            else {
+                if (wait_count > 4) {
+                    $('#searching').show();
+                    $('#loading_next').hide();
+                    (function(word) {
+                        $.get(
+                            '<mt:BlogURL />/search.php',
+							{
+								'q': word,
+								'limit': '<mt:SearchMaxResults />'
+						   	},
+                            function(text) {
+                                $('#searching').hide();
+                                var split = text.indexOf("\n");
+                                cache[word] = {
+                                    'next': $.trim(text.substr(0, split)),
+                                    'content': text.substr(split)
+                                };
+                                if (word == current) {
+                                    display(word);
+                                }
+                            }
+                        ); 
+                    })(current);
+                    wait_count = 0;
+                }
+                else {
+                    wait_count++;
+                }
+            }
+        }
+    }, 100);
+})();
+</script>
+
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,203 @@
+--- 
+author_link: 'http://tec.toi-planning.net/'
+author_name: ToI企画
+class: blog
+description: 'GoogleDocs プラグインのテーマ'
+required_components:
+  SearchEngine: 0.0.4
+  AssetArchives: 0.1.1
+elements: 
+  template_set: 
+    component: ~
+    data: 
+      base_path: templates
+      label: exported_template set
+      templates: 
+        archive: 
+          category_entry_listing: 
+            label: カテゴリ別ブログ記事リスト
+            mappings: 
+              category: 
+                archive_type: Category
+                preferred: 1
+          monthly_entry_listing: 
+            label: 月別ブログ記事リスト
+            mappings: 
+              monthly: 
+                archive_type: Monthly
+                preferred: 1
+        index: 
+          archive_index: 
+            label: アーカイブインデックス
+            outfile: archives.html
+            rebuild_me: 1
+          feed_recent: 
+            label: 最新記事のフィード
+            outfile: atom.xml
+            rebuild_me: 1
+          javascript: 
+            label: JavaScript
+            outfile: mt.js
+            rebuild_me: 1
+          main_index: 
+            label: メインページ
+            outfile: index.html
+            rebuild_me: 1
+          rsd: 
+            label: RSD
+            outfile: rsd.xml
+            rebuild_me: 1
+          styles: 
+            label: スタイルシート
+            outfile: styles.css
+            rebuild_me: 1
+          template_1859: 
+            label: AJAX検索サーバー
+            outfile: search.php
+            rebuild_me: 1
+          template_1915: 
+            label: AJAX検索ページ
+            outfile: ajax_search.html
+            rebuild_me: 1
+        individual: 
+          entry: 
+            label: ブログ記事
+            mappings: 
+              individual: 
+                archive_type: Individual
+                file_template: "%y/%m/%-f"
+                preferred: 1
+          template_1860: 
+            label: AJAX検索用検索結果 (Entry)
+            mappings: 
+              individual: 
+                archive_type: Individual
+                file_template: cache/<mt:GoogleDocsID _default="unknown" />
+                preferred: 0
+          template_1862: 
+            label: AJAX検索用検索結果 (Asset)
+            mappings: 
+              file: 
+                archive_type: File
+                file_template: cache/<mt:GoogleDocsID _default="unknown" />
+                preferred: 1
+        module: 
+          banner_footer: 
+            label: バナーフッター
+          banner_header: 
+            label: バナーヘッダー
+          comment_detail: 
+            label: コメント詳細
+          comments: 
+            label: コメント
+          entry_summary: 
+            label: ブログ記事の概要
+          html_head: 
+            label: HTMLヘッダー
+          sidebar: 
+            label: サイドバー
+          trackbacks: 
+            label: トラックバック
+        page: 
+          page: 
+            label: ウェブページ
+            mappings: 
+              page: 
+                archive_type: Page
+                preferred: 1
+        system: 
+          comment_listing: 
+            label: コメント一覧
+          comment_preview: 
+            label: コメントプレビュー
+          comment_response: 
+            label: コメント完了
+          dynamic_error: 
+            label: ダイナミックパブリッシングエラー
+          popup_image: 
+            label: ポップアップ画像
+          search_results: 
+            label: 検索結果
+        widget: 
+          about_this_page: 
+            label: About
+          archive_widgets_group: 
+            label: アーカイブウィジェットグループ
+          author_archive_list: 
+            label: ユーザーアーカイブ
+          calendar: 
+            label: カレンダー
+          category_archive_list: 
+            label: カテゴリアーカイブ
+          creative_commons: 
+            label: クリエイティブ・コモンズ
+          current_author_monthly_archive_list: 
+            label: ユーザー月別アーカイブ
+          current_category_monthly_archive_list: 
+            label: カテゴリ月別アーカイブ
+          date_based_author_archives: 
+            label: 日付ベースのユーザーアーカイブ
+          date_based_category_archives: 
+            label: 日付ベースのカテゴリアーカイブ
+          main_index_widgets_group: 
+            label: ホームページウィジェットグループ
+          monthly_archive_dropdown: 
+            label: 月別アーカイブ(ドロップダウン)
+          monthly_archive_list: 
+            label: 月別アーカイブ
+          openid: 
+            label: OpenID対応
+          pages_list: 
+            label: ページ一覧
+          powered_by: 
+            label: Powered By
+          recent_assets: 
+            label: アイテム
+          recent_comments: 
+            label: 最近のコメント
+          recent_entries: 
+            label: 最近のブログ記事
+          search: 
+            label: 検索
+          signin: 
+            label: サインイン
+          syndication: 
+            label: 購読
+          tag_cloud: 
+            label: タグクラウド
+          technorati_search: 
+            label: Technorati Search
+        widgetset: 
+          2column_layout_sidebar: 
+            label: 2カラムのサイドバー
+            order: 1000
+            widgets: 
+              - 検索
+              - About
+              - ホームページウィジェットグループ
+              - アーカイブウィジェットグループ
+              - ページ一覧
+              - 購読
+              - OpenID対応
+              - Powered By
+          3column_layout_primary_sidebar: 
+            label: 3カラムのサイドバー(メイン)
+            order: 1000
+            widgets: 
+              - アーカイブウィジェットグループ
+              - ページ一覧
+              - 購読
+              - OpenID対応
+              - Powered By
+          3column_layout_secondary_sidebar: 
+            label: 3カラムのサイドバー(サブ)
+            order: 1000
+            widgets: 
+              - 検索
+              - ホームページウィジェットグループ
+              - About
+    importer: template_set
+id: google_docs_theme
+label: GoogleDocs
+name: GoogleDocs
+version: 0.1.0

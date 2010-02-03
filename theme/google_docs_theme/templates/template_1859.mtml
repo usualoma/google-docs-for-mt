@@ -1,0 +1,65 @@
+<?php
+
+set_include_path(
+    get_include_path() . ':<mt:GoogleDocsZendFrameworkPath />'
+);
+
+require_once 'Zend/Loader.php';
+Zend_Loader::loadClass('Zend_Gdata_ClientLogin');
+Zend_Loader::loadClass('Zend_Gdata_Docs');
+Zend_Loader::loadClass('Zend_Gdata_Docs_Query');
+
+class My_Zend_Gdata_Docs_Query extends Zend_Gdata_Docs_Query {
+	const DOCUMENTS_LIST_FEED_URI = 'http://docs.google.com/feeds/default';
+	protected $_projection = 'full/folder%3A<mt:GoogleDocsBaseFolderID />/contents';
+}
+
+$serviceName = Zend_Gdata_Docs::AUTH_SERVICE_NAME;
+$applicationName = 'GoogleDocsForMT';
+
+$pass_keys = array('max-results', 'start-index', 'start-key');
+
+// Create an authenticated HTTP client
+$httpClient = Zend_Gdata_ClientLogin::getHttpClient(
+	'<mt:GoogleDocsEmail />', '<mt:GoogleDocsPassword />',
+    $serviceName, null, $applicationName
+);
+$docs = new Zend_Gdata_Docs($httpClient, $applicationName);
+$docs->setMajorProtocolVersion(3);
+$docs->setMinorProtocolVersion(0);
+
+$query = new My_Zend_Gdata_Docs_Query();
+
+$query->setQuery($_GET['q']);
+foreach ($pass_keys as $k) {
+	if (! empty($_GET[$k])) {
+		$query->setParam($k, $_GET[$k]);
+	}
+}
+if (! empty($_GET['limit'])) {
+    $query->setParam('max-results', $_GET['limit']);
+}
+$feed = $docs->getDocumentListFeed($query);
+
+// $feed->getPreviousLink();
+$next = $feed->getNextLink();
+$next_url = '';
+if ($next) {
+	$next = $next->getHref();
+	$next_url = $_SERVER['PHP_SELF'] . '?q=' . urlencode($_GET['q']);
+	foreach ($pass_keys as $k) {
+		if (preg_match("/$k=([^\\&]*)/", $next, $m)) {
+			$next_url .= "&$k={$m[1]}";
+		}
+	}
+}
+print "$next_url\n";
+
+foreach ($feed as $e) {
+	if (preg_match('#.*?%3A([^/]*)#', $e->id->getText(), $m)) {
+		$file = '<mt:BlogSitePath />/cache/' . $m[1];
+		if (file_exists($file)) {
+			readfile($file);
+		}
+	}
+}

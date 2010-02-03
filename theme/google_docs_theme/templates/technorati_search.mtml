@@ -1,0 +1,19 @@
+<div class="widget-technorati widget">
+    <h3 class="widget-header">Techonrati</h3>
+    <div class="widget-content">
+        <div id="technorati">
+            <form id="ts_s" method="post" action="http://technorati.com/search.php">
+                <fieldset>
+                    <legend><a href='http://www.technorati.com/'>Technorati</a> search</legend>
+                    <input type="hidden" name="sub" value="searchlet" />
+                    <input type="text" id="ts_search" name="s" size="12" maxlength="255" value="" /><br />
+                    <input type="radio" checked="checked" name="from" id="ts_yb" value="<$mt:BlogURL$>" />
+                    <label for="ts_yb" title="<$mt:BlogName$>">このブログ</label>
+                    <input type="radio" name="from" id="ts_www" value="" /> <label for="ts_www">すべてのブログ</label>
+                    <input type="submit" class="btn" value="検索" />
+                </fieldset>
+            </form>
+            <p id="ts_l" class="ts_l"><a href="http://technorati.com/search/<$mt:BlogURL$>" id="ts_lh">&#187; リンクしているブログ</a></p>
+        </div>
+    </div>
+</div>

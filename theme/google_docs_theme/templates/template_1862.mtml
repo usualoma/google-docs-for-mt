@@ -1,0 +1,21 @@
+<div id="" class="entry-asset asset hentry">
+    <div class="asset-header">
+        <h2 class="asset-name entry-title"><a href="<mt:AssetURL />" rel="bookmark"><mt:If tag="AssetLabel"><mt:AssetLabel /><mt:Else><mt:AssetFileName></mt:If></a></h2>
+        <div class="asset-meta">
+            <span class="byline">
+            </span>
+        </div>
+    </div>
+    <div class="asset-content entry-content">
+        <div class="asset-body">
+            <mt:If tag="AssetDescription">
+                <mt:AssetDescription />
+                <br />
+            </mt:If>
+            <mt:If tag="AssetThumbnailURL">
+                <a href="<mt:AssetURL />" ><img src="<mt:AssetThumbnailURL width="200" />"></a>
+            </mt:If>
+        </div>
+    </div>
+    <div class="asset-footer"></div>
+</div>
